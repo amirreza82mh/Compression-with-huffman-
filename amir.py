@@ -1,5 +1,6 @@
 def huffman(string):
     alphabet_frequancy = {}     #make an empty dictionary for word and teir frequancy
+    alphabets = []
     alphabet_frequancy = CountWord(string, alphabet_frequancy)
     alphabets = listAlphabet(string) 
     lenght_of_alphabets = len(alphabets)
@@ -26,7 +27,8 @@ def min_heap(alphabet, dictionary, lenght, i):        #Min heapSort  O(nlogn)
         minium = rigthchild
 
     if minium != alphabet[i]:
-        alphabet[i], alphabet[minium] = alphabet[minium], alphabet[i]  # swap
+        indexOfMin = alphabet.index(minium)
+        alphabet[i], alphabet[indexOfMin] = alphabet[indexOfMin], alphabet[i]  # swap
         min_heap(alphabet,dictionary, lenght, alphabet.index(minium))
 
 
