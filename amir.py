@@ -18,10 +18,23 @@ def huffman(string):
         del(alphabet_frequancy[left], alphabet_frequancy[right])
         alphabets.append(node)
         up_heaify(alphabets, alphabet_frequancy, len(alphabets) - 1 )
-    
-    print(string)
-    print(alphabets)
-    print(alphabet_frequancy)
+
+    #assigned code 
+    codes = {}
+
+    def assign_code(node, code):
+        if type(node) is str:
+            codes[node] = code
+        else:
+            assign_code(node.left, code + '0')
+            assign_code(node.right, code + '1')
+
+    root = alphabets.pop()
+    assign_code(root, "")
+
+    #encode string
+    encode = ''.join(codes[c] for c in string)
+
 
 
 
@@ -99,40 +112,3 @@ class Node:
 
 string = 'در این راستا'
 huffman(string)
-
-# while(len(alphabets) != 1):
-    #     num1 = alphabets.pop(0)
-    #     min_heap(alphabets, alphabet_frequancy, len(alphabets), i)
-    #     num2 = alphabets.pop(0)
-    #     min_heap(alphabets, alphabet_frequancy, len(alphabets), i)
-    #     num3 = alphabet_frequancy[num1] + alphabet_frequancy[num2]
-    #     alphabets.append(num3)
-    #     min_heap(alphabets, alphabet_frequancy, len(alphabets), i)
-
-
-# print(string)
-# print(alphabets)
-# print(alphabet_frequancy)
-
-
-
-    # reverse_alphabets = alphabets[::-1]
-    # num1 = reverse_alphabets.pop
-    # alphabets = 
-    # alphabets.remove.index(num1)
-
-    # lenght_of_frequancy = len(alphabet_frequancy)
-
-
-    # codes = {}
-    # root = alphabets.pop()
-    # assigned_code(root, '')
-
-    # def assigned_code(node, code):
-    #     if node.char is not None:
-    #         codes[node.char] = code
-    #     else:
-    #         assigned_code(node.left, code + '0')
-    #         code = code[:len(code)]
-    #         assigned_code(node.right, code + '1')
-    #         code = code[:len(code)]    
