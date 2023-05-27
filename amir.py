@@ -74,5 +74,25 @@ class Node:
 string = 'در این راستا'
 huffman(string)
 
+# while(len(alphabets) != 1):
+    #     num1 = alphabets.pop(0)
+    #     min_heap(alphabets, alphabet_frequancy, len(alphabets), i)
+    #     num2 = alphabets.pop(0)
+    #     min_heap(alphabets, alphabet_frequancy, len(alphabets), i)
+    #     num3 = alphabet_frequancy[num1] + alphabet_frequancy[num2]
+    #     alphabets.append(num3)
+    #     min_heap(alphabets, alphabet_frequancy, len(alphabets), i)
 
 
+# print(string)
+# print(alphabets)
+# print(alphabet_frequancy)
+
+
+
+    # reverse_alphabets = alphabets[::-1]
+    # num1 = reverse_alphabets.pop
+    # alphabets = 
+    # alphabets.remove.index(num1)
+
+    # lenght_of_frequancy = len(alphabet_frequancy)
