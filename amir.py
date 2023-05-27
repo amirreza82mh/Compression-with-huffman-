@@ -17,12 +17,18 @@ def huffman(string):
         alphabet_frequancy[node] = alphabet_frequancy[left] + alphabet_frequancy[right]
         del(alphabet_frequancy[left], alphabet_frequancy[right])
         alphabets.append(node)
-        up_heaify(alphabets, alphabet_frequancy, len(alphabets)-1)
+        up_heaify(alphabets, alphabet_frequancy, len(alphabets) - 1 )
+    
+    print(string)
+    print(alphabets)
+    print(alphabet_frequancy)
+
 
 
 def up_heaify(alphabet, dictionary, i):
+    index_parent = (i - 1) // 2
     child = alphabet[i]
-    parent = alphabet[(i - 1) // 2]
+    parent = alphabet[index_parent]
 
 
     # Check if the element is at the root or in its correct position
@@ -30,10 +36,10 @@ def up_heaify(alphabet, dictionary, i):
         return
 
     # Swap the element with its parent
-    alphabet[i], alphabet[parent] = alphabet[parent], alphabet[i]
+    alphabet[i], alphabet[index_parent] = alphabet[index_parent], alphabet[i]
 
     # Perform heapify_up recursively on the parent
-    up_heaify(alphabet, dictionary, parent)
+    up_heaify(alphabet, dictionary, index_parent)
 
 def min_heap(alphabet, dictionary, lenght, i):        #Min heapSort  O(nlogn)
     minium = alphabet[i]
@@ -64,8 +70,9 @@ def pop_element(heap, dictionary):
     heap[0] = heap[-1]
     heap.pop()
 
-    # Reconstruct the heap
-    min_heap(heap, dictionary, len(heap), 0)
+    if len(heap) != 0:
+        # Reconstruct the heap
+        min_heap(heap, dictionary, len(heap), 0)
 
     return popped_element
 
