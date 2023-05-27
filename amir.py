@@ -13,29 +13,12 @@ def huffman(string):
     while(len(alphabets)-1 > 0):
         left = pop_element(alphabets, alphabet_frequancy)
         right = pop_element(alphabets, alphabet_frequancy)
-        # del(alphabet_frequancy[left], alphabet_frequancy[right])
         node = Node(None, left, right)
         alphabet_frequancy[node] = alphabet_frequancy[left] + alphabet_frequancy[right]
         del(alphabet_frequancy[left], alphabet_frequancy[right])
         alphabets.append(node)
         up_heaify(alphabets, alphabet_frequancy, len(alphabets)-1)
-        
-    print(string)
-    print(alphabets)
-    print(alphabet_frequancy)
 
-    # codes = {}
-    # root = alphabets.pop()
-    # assigned_code(root, '')
-
-    # def assigned_code(node, code):
-    #     if node.char is not None:
-    #         codes[node.char] = code
-    #     else:
-    #         assigned_code(node.left, code + '0')
-    #         code = code[:len(code)]
-    #         assigned_code(node.right, code + '1')
-    #         code = code[:len(code)]    
 
 def up_heaify(alphabet, dictionary, i):
     child = alphabet[i]
@@ -132,3 +115,17 @@ huffman(string)
     # alphabets.remove.index(num1)
 
     # lenght_of_frequancy = len(alphabet_frequancy)
+
+
+    # codes = {}
+    # root = alphabets.pop()
+    # assigned_code(root, '')
+
+    # def assigned_code(node, code):
+    #     if node.char is not None:
+    #         codes[node.char] = code
+    #     else:
+    #         assigned_code(node.left, code + '0')
+    #         code = code[:len(code)]
+    #         assigned_code(node.right, code + '1')
+    #         code = code[:len(code)]    
