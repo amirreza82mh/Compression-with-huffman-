@@ -7,9 +7,28 @@ def huffman(string):
     # lenght_of_frequancy = len(alphabet_frequancy)
     for i in range(lenght_of_alphabets//2-1, -1, -1):
         min_heap(alphabets, alphabet_frequancy, lenght_of_alphabets, i)
-    print(string)
-    print(alphabets)
-    print(alphabet_frequancy)
+    
+    while(len(alphabets)-1):
+        left = alphabets.pop(0)
+        right = alphabets.pop(0)
+        frequancy = alphabet_frequancy[left] + alphabet_frequancy[right]
+        del(alphabet_frequancy[left], alphabet_frequancy[right])
+        node = Node(None, left, right)
+        alphabet_frequancy[node] = frequancy
+        alphabets.append(node)
+        for i in range(len(alphabets)//2-1, -1, -1):
+            min_heap(alphabets, alphabet_frequancy, len(alphabets),i)
+
+    codes = {}
+    root = alphabets.pop()
+    assigned_code(root, '')
+
+    def assigned_code(node, code):
+        if node.char is not None:
+            codes[node.char] = code
+        else:
+            assigned_code(node.left, code + '0')
+            assigned_code(node.right, code + '1')
 
 def min_heap(alphabet, dictionary, lenght, i):        #Min heapSort  O(nlogn)
     minium = alphabet[i]
@@ -45,6 +64,12 @@ def listAlphabet(string):    #make an string of alphabet O(n)
         else:
             List.append(i)
     return List
+
+class Node:
+    def init(self, char, left=None, right=None):
+        self.char = char
+        self.left = left
+        self.right = right
 
 string = 'در این راستا'
 huffman(string)
