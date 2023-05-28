@@ -35,6 +35,7 @@ def huffman(string):
     #encode string
     encode = ''.join(codes[c] for c in string)
 
+    return encode, root 
 
 
 
@@ -124,11 +125,29 @@ def listAlphabet(string):    #make an string of alphabet O(n)
             List.append(i)
     return List
 
+def huffman_decoding(encoded, root):
+
+    decoded = ""
+    node = root
+    for bit in encoded:
+        if bit == "0":
+            node = node.left
+        else:
+            node = node.right
+        if type(node) is str:
+            decoded += node
+            node = root
+    return decoded
+
 class Node:
-    def init(self, char, left=None, right=None):
+    def __init__(self, char, left=None, right=None):
         self.char = char
         self.left = left
         self.right = right
 
 string = 'در این راستا'
-huffman(string)
+print(f'input string is = {string}')
+encode, root = huffman(string)
+print(f'encoded string is = {encode}')
+decode = huffman_decoding(encode, root)
+print(f'decode string = {decode}')
