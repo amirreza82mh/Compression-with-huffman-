@@ -15,7 +15,7 @@ def huffman(string):
         right = pop_element(alphabets, alphabet_frequancy)
         node = Node(None, left, right)
         alphabet_frequancy[node] = alphabet_frequancy[left] + alphabet_frequancy[right]
-        del(alphabet_frequancy[left], alphabet_frequancy[right])
+        # del(alphabet_frequancy[left], alphabet_frequancy[right])
         alphabets.append(node)
         up_heaify(alphabets, alphabet_frequancy, len(alphabets) - 1 )
 
@@ -45,7 +45,7 @@ def up_heaify(alphabet, dictionary, i):
 
 
     # Check if the element is at the root or in its correct position
-    if i == 0 or dictionary[child] <= dictionary[parent]:
+    if i == 0 or dictionary[child] >= dictionary[parent]:
         return
 
     # Swap the element with its parent
@@ -53,6 +53,26 @@ def up_heaify(alphabet, dictionary, i):
 
     # Perform heapify_up recursively on the parent
     up_heaify(alphabet, dictionary, index_parent)
+
+def down_heapify(heap, dictionary, i):
+    maxium = heap[i]
+    l = 2 * i + 1
+    r = 2 * i + 2
+    if l < len(heap):
+        leftchild = heap[l]
+    if r < len(heap):
+        rigthchild = heap[r]
+    
+    if l < len(heap) and dictionary[maxium] > dictionary[leftchild]:
+        maxium = leftchild
+
+    if r < len(heap) and dictionary[maxium] > dictionary[rigthchild]:
+        maxium = rigthchild
+    
+    if maxium != heap[i]:
+        indexOfMax = heap.index(maxium)
+        heap[i], heap[indexOfMax] = heap[indexOfMax], heap[i]
+        down_heapify(heap, dictionary, indexOfMax)
 
 def min_heap(alphabet, dictionary, lenght, i):        #Min heapSort  O(nlogn)
     minium = alphabet[i]
@@ -85,7 +105,7 @@ def pop_element(heap, dictionary):
 
     if len(heap) != 0:
         # Reconstruct the heap
-        min_heap(heap, dictionary, len(heap), 0)
+        down_heapify(heap, dictionary, 0)
 
     return popped_element
 
@@ -105,7 +125,7 @@ def listAlphabet(string):    #make an string of alphabet O(n)
     return List
 
 class Node:
-    def __init__(self, char, left=None, right=None):
+    def init(self, char, left=None, right=None):
         self.char = char
         self.left = left
         self.right = right
