@@ -16,7 +16,7 @@ def huffman(string):
         node = Node(None, left, right)
         alphabet_frequancy[node] = alphabet_frequancy[left] + alphabet_frequancy[right]
         alphabets.append(node)
-        up_heaify(alphabets, alphabet_frequancy, len(alphabets) - 1 )
+        down_to_up_heaify(alphabets, alphabet_frequancy, len(alphabets) - 1 )
 
     #assigned code 
     codes = {}
@@ -81,11 +81,11 @@ def pop_element(heap, dictionary):
 
     if len(heap) != 0:
         # Reconstruct the heap
-        down_heapify(heap, dictionary, 0)
+        up_to_down_heapify(heap, dictionary, 0)
 
     return popped_element
 
-def down_heapify(heap, dictionary, i):
+def up_to_down_heapify(heap, dictionary, i):
     maxium = heap[i]
     l = 2 * i + 1
     r = 2 * i + 2
@@ -103,10 +103,10 @@ def down_heapify(heap, dictionary, i):
     if maxium != heap[i]:
         indexOfMax = heap.index(maxium)
         heap[i], heap[indexOfMax] = heap[indexOfMax], heap[i]
-        down_heapify(heap, dictionary, indexOfMax)
+        up_to_down_heapify(heap, dictionary, indexOfMax)
 
 
-def up_heaify(alphabet, dictionary, i):
+def down_to_up_heaify(alphabet, dictionary, i):
     index_parent = (i - 1) // 2
     child = alphabet[i]
     parent = alphabet[index_parent]
@@ -120,7 +120,7 @@ def up_heaify(alphabet, dictionary, i):
     alphabet[i], alphabet[index_parent] = alphabet[index_parent], alphabet[i]
 
     # Perform heapify_up recursively on the parent
-    up_heaify(alphabet, dictionary, index_parent)
+    down_to_up_heaify(alphabet, dictionary, index_parent)
 
 def huffman_decoding(encoded, root):
 
