@@ -1,12 +1,12 @@
 def huffman(string):
 
-    alphabet_frequancy = {}    
+    alphabet_frequancy = {}         
     alphabets = []
 
     alphabet_frequancy = CountWord(string, alphabet_frequancy)
     alphabets = listAlphabet(string) 
 
-    #bulid heap
+    #bulid heap array  O(nlogn)
     for i in range(len(alphabets)//2-1, -1, -1):
         min_heap(alphabets, alphabet_frequancy, len(alphabets), i)
     
@@ -15,7 +15,6 @@ def huffman(string):
         right = pop_element(alphabets, alphabet_frequancy)
         node = Node(None, left, right)
         alphabet_frequancy[node] = alphabet_frequancy[left] + alphabet_frequancy[right]
-        # del(alphabet_frequancy[left], alphabet_frequancy[right])
         alphabets.append(node)
         up_heaify(alphabets, alphabet_frequancy, len(alphabets) - 1 )
 
@@ -37,45 +36,21 @@ def huffman(string):
 
     return encode, root 
 
+def CountWord(string, alphabet_frequancy):      # make a dictionary of alphabet with teir frequancy    O(n)
+    for i in string:
+        alphabet_frequancy[i] = alphabet_frequancy.get(i, 0) + 1    
+    return alphabet_frequancy
 
+def listAlphabet(string):    #make an string of alphabet O(n)
+    List = []
+    for i in string:
+        if i in List:
+            continue
+        else:
+            List.append(i)
+    return List
 
-def up_heaify(alphabet, dictionary, i):
-    index_parent = (i - 1) // 2
-    child = alphabet[i]
-    parent = alphabet[index_parent]
-
-
-    # Check if the element is at the root or in its correct position
-    if i == 0 or dictionary[child] >= dictionary[parent]:
-        return
-
-    # Swap the element with its parent
-    alphabet[i], alphabet[index_parent] = alphabet[index_parent], alphabet[i]
-
-    # Perform heapify_up recursively on the parent
-    up_heaify(alphabet, dictionary, index_parent)
-
-def down_heapify(heap, dictionary, i):
-    maxium = heap[i]
-    l = 2 * i + 1
-    r = 2 * i + 2
-    if l < len(heap):
-        leftchild = heap[l]
-    if r < len(heap):
-        rigthchild = heap[r]
-    
-    if l < len(heap) and dictionary[maxium] > dictionary[leftchild]:
-        maxium = leftchild
-
-    if r < len(heap) and dictionary[maxium] > dictionary[rigthchild]:
-        maxium = rigthchild
-    
-    if maxium != heap[i]:
-        indexOfMax = heap.index(maxium)
-        heap[i], heap[indexOfMax] = heap[indexOfMax], heap[i]
-        down_heapify(heap, dictionary, indexOfMax)
-
-def min_heap(alphabet, dictionary, lenght, i):        #Min heapSort  O(nlogn)
+def min_heap(alphabet, dictionary, lenght, i):        #build min heap  O(logn)
     minium = alphabet[i]
     l = 2 * i + 1
     r = 2 * i + 2
@@ -110,20 +85,42 @@ def pop_element(heap, dictionary):
 
     return popped_element
 
+def down_heapify(heap, dictionary, i):
+    maxium = heap[i]
+    l = 2 * i + 1
+    r = 2 * i + 2
+    if l < len(heap):
+        leftchild = heap[l]
+    if r < len(heap):
+        rigthchild = heap[r]
+    
+    if l < len(heap) and dictionary[maxium] > dictionary[leftchild]:
+        maxium = leftchild
 
-def CountWord(string, alphabet_frequancy):      # make a dictionary of alphabet with teir frequancy    O(n)
-    for i in string:
-        alphabet_frequancy[i] = alphabet_frequancy.get(i, 0) + 1    
-    return alphabet_frequancy
+    if r < len(heap) and dictionary[maxium] > dictionary[rigthchild]:
+        maxium = rigthchild
+    
+    if maxium != heap[i]:
+        indexOfMax = heap.index(maxium)
+        heap[i], heap[indexOfMax] = heap[indexOfMax], heap[i]
+        down_heapify(heap, dictionary, indexOfMax)
 
-def listAlphabet(string):    #make an string of alphabet O(n)
-    List = []
-    for i in string:
-        if i in List:
-            continue
-        else:
-            List.append(i)
-    return List
+
+def up_heaify(alphabet, dictionary, i):
+    index_parent = (i - 1) // 2
+    child = alphabet[i]
+    parent = alphabet[index_parent]
+
+
+    # Check if the element is at the root or in its correct position
+    if i == 0 or dictionary[child] >= dictionary[parent]:
+        return
+
+    # Swap the element with its parent
+    alphabet[i], alphabet[index_parent] = alphabet[index_parent], alphabet[i]
+
+    # Perform heapify_up recursively on the parent
+    up_heaify(alphabet, dictionary, index_parent)
 
 def huffman_decoding(encoded, root):
 
