@@ -141,10 +141,3 @@ class Node:
         self.char = char
         self.left = left
         self.right = right
-
-string = 'در این راستا'
-print(f'input string is = {string}')
-encode, root = huffman(string)
-print(f'encoded string is = {encode}')
-decode = huffman_decoding(encode, root)
-print(f'decode string = {decode}')
