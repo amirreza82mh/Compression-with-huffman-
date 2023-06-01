@@ -2,11 +2,13 @@ from huffman import huffman, huffman_decoding
 from colorama import Fore, Back, Style
 import pyfiglet
 import os
+import time
 
 def clear_screen():
         if os.name == "posix":
-            # For UNIX-based systems (Linux, macOS)
             os.system("clear")
+        elif os.name == "nt":
+            os.system("cls")
 
 
 strings = []
@@ -16,6 +18,7 @@ clear_screen()
 while True:
     title_text = pyfiglet.figlet_format('namir huffman', font='slant')
     print(Back.BLACK + Fore.WHITE + Style.BRIGHT + title_text + Style.RESET_ALL)
+
     print()
     print('--------------------------------------')
     print('1: Enter a string')
@@ -25,32 +28,59 @@ while True:
     print('--------------------------------------')
     print()
 
-    case = int(input('Please enter a number: '))
+    while True:
+        try:
+            case = int(input(Fore.YELLOW + 'Please enter a number: ' + Style.RESET_ALL))
+            break
+        except ValueError:
+            print(Fore.RED + "Invalid input. Please enter a valid integer." + Style.RESET_ALL)
+            print()
+            
 
     if case == 1:
-        entered_string = input('Please enter a string: ')
+        entered_string = input(Fore.YELLOW + 'Please enter a string: ' + Style.RESET_ALL)
         strings.append(entered_string)
+
     elif case == 2:
         if not strings:
-            print('No strings entered yet')
+            print(Fore.RED + '\nNo strings entered yet' + Style.RESET_ALL)
         else:
+            print()
             for i, string in enumerate(strings):
-                print(f'{i+1}: {string}')
+                print(Fore.CYAN + f'{i+1}: ' + Style.RESET_ALL + f'{string}')
+
     elif case == 3:
         if not strings:
-            print('No strings entered yet')
+            print(Fore.RED + '\nNo strings entered yet' + Style.RESET_ALL)
         else:
-            print('Select a string to encode and decode:')
+            print(Fore.LIGHTGREEN_EX + '\nSelect a string to encode and decode:' + Style.RESET_ALL)
             for i, string in enumerate(strings):
-                print(f'{i+1}: {string}')
-            selected_string_index = int(input('Enter a number: '))
+                print(Fore.CYAN + f'{i+1}:' + Style.RESET_ALL + f'{string}')
+            
+            while True:
+                try:
+                    selected_string_index = int(input(Fore.LIGHTBLUE_EX + '\nEnter a number: ' + Style.RESET_ALL))
+                    break
+                except ValueError:
+                    print(Fore.RED + "Invalid input. Please enter a valid integer." + Style.RESET_ALL)
+
             selected_string = strings[selected_string_index - 1]
             encoded_string, root = huffman(selected_string)
             decoded_string = huffman_decoding(encoded_string, root)
-            print(f'Encoded string: {encoded_string}')
-            print(f'Decoded string: {decoded_string}')
+            clear_screen()
+            print()
+            print(Fore.GREEN + 'Encoded string: ' + Style.RESET_ALL + f'{encoded_string}')
+            print(Fore.GREEN + 'Decoded string: ' + Style.RESET_ALL + f'{decoded_string}')
+
     elif case == 4:
         break
+    
+    else:
+        print(Fore.RED + '\ninput is not accrpted\n' + Style.RESET_ALL)
+        time.sleep(2)
+        clear_screen()
+        continue
+        
 
-    input('\npress Enter to continue...')
+    input(Fore.WHITE + '\npress Enter to continue...' + Style.RESET_ALL)
     clear_screen()
