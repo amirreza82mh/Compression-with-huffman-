@@ -3,7 +3,15 @@ from colorama import Fore, Back, Style
 import pyfiglet
 import os
 
+def clear_screen():
+        if os.name == "posix":
+            # For UNIX-based systems (Linux, macOS)
+            os.system("clear")
+
+
 strings = []
+
+clear_screen()
 
 while True:
     title_text = pyfiglet.figlet_format('namir huffman', font='slant')
@@ -43,11 +51,6 @@ while True:
             print(f'Decoded string: {decoded_string}')
     elif case == 4:
         break
-
-    def clear_screen():
-        if os.name == "posix":
-            # For UNIX-based systems (Linux, macOS)
-            os.system("clear")
 
     input('\npress Enter to continue...')
     clear_screen()
