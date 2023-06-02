@@ -65,11 +65,15 @@ while True:
                     print(Fore.RED + "Invalid input. Please enter a valid integer." + Style.RESET_ALL)
 
             selected_string = strings[selected_string_index - 1]
-            encoded_string, root = huffman(selected_string)
+            encoded_string, codes, root = huffman(selected_string)
             decoded_string = huffman_decoding(encoded_string, root)
             clear_screen()
             print()
-            print(Fore.GREEN + 'Encoded string: ' + Style.RESET_ALL + f'{encoded_string}')
+            print(Fore.LIGHTBLUE_EX + 'Encoded string: ' + Style.RESET_ALL + f'{encoded_string}')
+            print()
+            for i,j in codes.items():
+                print(Fore.CYAN + f'{i}: ' + Style.RESET_ALL +  f'{j}')
+            print()
             print(Fore.GREEN + 'Decoded string: ' + Style.RESET_ALL + f'{decoded_string}')
 
     elif case == 4:

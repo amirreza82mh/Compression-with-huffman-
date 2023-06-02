@@ -13,8 +13,13 @@ def huffman(string):
     while(len(alphabets)-1 > 0):
         left = pop_element(alphabets, alphabet_frequancy)
         right = pop_element(alphabets, alphabet_frequancy)
+        result = alphabet_frequancy[left] + alphabet_frequancy[right]
+        if type(left) is str:
+            left = Node(left, None, None)
+        if type(right) is str:
+            right = Node(right, None, None) 
         node = Node(None, left, right)
-        alphabet_frequancy[node] = alphabet_frequancy[left] + alphabet_frequancy[right]
+        alphabet_frequancy[node] = result
         alphabets.append(node)
         down_to_up_heaify(alphabets, alphabet_frequancy, len(alphabets) - 1 )
 
@@ -22,8 +27,8 @@ def huffman(string):
     codes = {}
 
     def assign_code(node, code):
-        if type(node) is str:
-            codes[node] = code
+        if node.char is not None:
+            codes[node.char] = code
         else:
             assign_code(node.left, code + '0')
             assign_code(node.right, code + '1')
@@ -34,7 +39,7 @@ def huffman(string):
     #encode string
     encode = ''.join(codes[c] for c in string)
 
-    return encode, root 
+    return encode, codes, root 
 
 def CountWord(string, alphabet_frequancy):      # make a dictionary of alphabet with teir frequancy    O(n)
     for i in string:
@@ -131,8 +136,8 @@ def huffman_decoding(encoded, root):
             node = node.left
         else:
             node = node.right
-        if type(node) is str:
-            decoded += node
+        if node.char is not None:
+            decoded += node.char
             node = root
     return decoded
 
