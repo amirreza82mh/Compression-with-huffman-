@@ -39,7 +39,7 @@ def huffman(string):
     #encode string
     encode = ''.join(codes[c] for c in string)
 
-    return encode, codes, root 
+    return encode, codes, alphabet_frequancy, root 
 
 def CountWord(string, alphabet_frequancy):      # make a dictionary of alphabet with teir frequancy    O(n)
     for i in string:

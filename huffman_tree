@@ -1,0 +1,52 @@
+digraph {
+	{
+		rank=same
+		12 [fillcolor=lightgray style=filled]
+	}
+	12 -> 5 [label=0]
+	{
+		rank=same
+		5 [fillcolor=lightgray style=filled]
+	}
+	5 -> 140681647095872 [label=0]
+	140681647095872 [label=" "]
+	5 -> 3 [label=0]
+	{
+		rank=same
+		3 [fillcolor=lightgray style=filled]
+	}
+	3 -> 140681647101200 [label=0]
+	140681647101200 [label="ن"]
+	3 -> 2 [label=0]
+	{
+		rank=same
+		2 [fillcolor=lightgray style=filled]
+	}
+	2 -> 140681667461072 [label=0]
+	140681667461072 [label="س"]
+	2 -> 140681647107488 [label=0]
+	140681647107488 [label="ی"]
+	12 -> 7 [label=0]
+	{
+		rank=same
+		7 [fillcolor=lightgray style=filled]
+	}
+	7 -> 140681647103600 [label=0]
+	140681647103600 [label="ا"]
+	7 -> 4 [label=0]
+	{
+		rank=same
+		4 [fillcolor=lightgray style=filled]
+	}
+	4 -> 2 [label=0]
+	{
+		rank=same
+		2 [fillcolor=lightgray style=filled]
+	}
+	2 -> 140681649142368 [label=0]
+	140681649142368 [label="د"]
+	2 -> 140681649140352 [label=0]
+	140681649140352 [label="ت"]
+	4 -> 140681647101440 [label=0]
+	140681647101440 [label="ر"]
+}
