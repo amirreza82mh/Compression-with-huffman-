@@ -1,8 +1,7 @@
 import graphviz
 from PIL import Image
-from tkinter import Tk,Label
 
-def draw_huffman_tree(root,dictionary):
+def draw_huffman_tree(root,dictioanry):
     # Create a new graph
     dot = graphviz.Digraph()
 
@@ -11,26 +10,17 @@ def draw_huffman_tree(root,dictionary):
         if node.char is not None:
             dot.node(str(id(node)), label=node.char)
         else:
-            with dot.subgraph() as s:
-                s.attr(rank='same')
-                s.node(str(dictionary[node]), style='filled', fillcolor='lightgray')
-            
+            dot.node(str(id(node)), label=str(dictioanry[node]))
         if node.left is not None:
-            if node.left.char is not None:
-                dot.edge(str(dictionary[node]), str(id(node.left)), label='0')
-            else:
-                dot.edge(str(dictionary[node]), str(dictionary[node.left]), label='0')
+            dot.edge(str(id(node)), str(id(node.left)), label='0')
             add_node(node.left)
-
         if node.right is not None:
-            if node.right.char is not None:
-                dot.edge(str(dictionary[node]), str(id(node.right)), label='0')
-            else:
-                dot.edge(str(dictionary[node]), str(dictionary[node.right]), label='0')
+            dot.edge(str(id(node)), str(id(node.right)), label='0')
             add_node(node.right)
 
     add_node(root)
 
+    # Save the graph to a file
     dot.render('huffman_tree', format='png')
 
     # Open and show the image file
