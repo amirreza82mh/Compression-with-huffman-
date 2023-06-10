@@ -77,6 +77,16 @@ while True:
                 print(Fore.CYAN + f'{i}: ' + Style.RESET_ALL +  f'{j}')
             print()
             print(Fore.GREEN + 'Decoded string: ' + Style.RESET_ALL + f'{decoded_string}')
+            print()
+            bit_of_ASCII = 4 * len(selected_string)
+            print(Fore.YELLOW + 'len of string: ' + Style.RESET_ALL + f'{len(selected_string)}')
+            print()
+            print(Fore.CYAN + 'number of string bit by ASCII: ' + Style.RESET_ALL + f'{bit_of_ASCII}')
+            print(Fore.CYAN + 'number of string bit by huffman: ' + Style.RESET_ALL + f'{len(encoded_string)}')
+            print()
+            precent =  100 - (len(encoded_string) / bit_of_ASCII) * 100
+            print(Fore.RED + 'Ratio of Ski code to Huffman coding : ' + Style.RESET_ALL + '%2f%%' %precent)
+
     
     elif case == 4:
         if not strings:
