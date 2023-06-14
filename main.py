@@ -130,7 +130,6 @@ while True:
             bit_of_ASCII_1 = 8 * len(string)
             precent =  100 - (len(encoded) / bit_of_ASCII_1) * 100
             sum += precent
-            # print(Fore.RED + 'Ratio of Ski code to Huffman coding : ' + Style.RESET_ALL + '%2f%%' %precent)
             print(Fore.CYAN + f'{i+1}: ' + Style.RESET_ALL + f'{string}\t' + Fore.RED + 'ratio: ' + Style.RESET_ALL + '%2f%%' %precent)
             print(Fore.YELLOW + 'encoded string: ' + Style.RESET_ALL + f'{encoded}')
             print()
