@@ -1,5 +1,7 @@
 from huffman import huffman, huffman_decoding
 from draw_tree import draw_huffman_tree
+import random
+import string
 from colorama import Fore, Back, Style
 import pyfiglet
 import os
@@ -28,7 +30,8 @@ while True:
     print('2: Show all strings')
     print('3: Show encoded and decoded string')
     print('4: draw tree')
-    print('5: Exit')
+    print('5: make 100 string')
+    print('6: Exit')
     print('--------------------------------------')
     print()
 
@@ -112,9 +115,35 @@ while True:
             _, _, dictionary, root = huffman(selected_string) 
             draw_huffman_tree(root, dictionary)  # show graphical tree
 
+    elif case == 5:
+        characters = 'آبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی'
+
+        strings_2 = []
+        for i in range(100):
+            length = random.randint(5, 15)
+            string = ''.join(random.choice(characters) for _ in range(length))
+            strings_2.append(string)
+        clear_screen()
+        sum = 0
+        for i, string in enumerate(strings_2):
+            encoded,_,_,_ = huffman(string)
+            bit_of_ASCII_1 = 8 * len(string)
+            precent =  100 - (len(encoded) / bit_of_ASCII_1) * 100
+            sum += precent
+            # print(Fore.RED + 'Ratio of Ski code to Huffman coding : ' + Style.RESET_ALL + '%2f%%' %precent)
+            print(Fore.CYAN + f'{i+1}: ' + Style.RESET_ALL + f'{string}\t' + Fore.RED + 'ratio: ' + Style.RESET_ALL + '%2f%%' %precent)
+            print(Fore.YELLOW + 'encoded string: ' + Style.RESET_ALL + f'{encoded}')
+            print()
+            print()
+
+        print()
+        print()        
+        print(Fore.GREEN + 'average of rasio: ' + Style.RESET_ALL + f'{sum / 100}')
+
+
 
     # exit from program
-    elif case == 5:
+    elif case == 6:
         break
     
     else:
