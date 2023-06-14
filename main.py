@@ -6,9 +6,9 @@ import os
 import time
 
 def clear_screen():
-        if os.name == "posix":
+        if os.name == "posix":     # for linux
             os.system("clear")
-        elif os.name == "nt":
+        elif os.name == "nt":    # windows
             os.system("cls")
 
 
@@ -17,9 +17,11 @@ strings = []
 clear_screen()
 
 while True:
-    title_text = pyfiglet.figlet_format('namir huffman', font='slant')
-    print(Back.BLACK + Fore.WHITE + Style.BRIGHT + title_text + Style.RESET_ALL)
+    # print title
+    title_text = pyfiglet.figlet_format('namir huffman', font='slant')        
+    print(Back.BLACK + Fore.WHITE + Style.BRIGHT + title_text + Style.RESET_ALL)        
 
+    # show options
     print()
     print('--------------------------------------')
     print('1: Enter a string')
@@ -30,6 +32,7 @@ while True:
     print('--------------------------------------')
     print()
 
+    #check vaild input
     while True:
         try:
             case = int(input(Fore.YELLOW + 'Please enter a number: ' + Style.RESET_ALL))
@@ -38,11 +41,12 @@ while True:
             print(Fore.RED + "Invalid input. Please enter a valid integer." + Style.RESET_ALL)
             print()
             
-
+    # Enter string
     if case == 1:
         entered_string = input(Fore.YELLOW + 'Please enter a string: ' + Style.RESET_ALL)
         strings.append(entered_string)
 
+    # show strings
     elif case == 2:
         if not strings:
             print(Fore.RED + '\nNo strings entered yet' + Style.RESET_ALL)
@@ -51,6 +55,7 @@ while True:
             for i, string in enumerate(strings):
                 print(Fore.CYAN + f'{i+1}: ' + Style.RESET_ALL + f'{string}')
 
+    # show decoded and encoded strings
     elif case == 3:
         if not strings:
             print(Fore.RED + '\nNo strings entered yet' + Style.RESET_ALL)
@@ -67,27 +72,29 @@ while True:
                     print(Fore.RED + "Invalid input. Please enter a valid integer." + Style.RESET_ALL)
 
             selected_string = strings[selected_string_index - 1]
-            encoded_string, codes, _, root = huffman(selected_string)
-            decoded_string = huffman_decoding(encoded_string, root)
+            encoded_string, codes, _, root = huffman(selected_string)  # decode string with huffman
+            decoded_string = huffman_decoding(encoded_string, root)  # decode string
             clear_screen()
             print()
-            print(Fore.LIGHTBLUE_EX + 'Encoded string: ' + Style.RESET_ALL + f'{encoded_string}')
+            print(Fore.LIGHTBLUE_EX + 'Encoded string: ' + Style.RESET_ALL + f'{encoded_string}') # show encode string
             print()
             for i,j in codes.items():
-                print(Fore.CYAN + f'{i}: ' + Style.RESET_ALL +  f'{j}')
+                print(Fore.CYAN + f'{i}: ' + Style.RESET_ALL +  f'{j}') # show codes of each char
             print()
-            print(Fore.GREEN + 'Decoded string: ' + Style.RESET_ALL + f'{decoded_string}')
+            print(Fore.GREEN + 'Decoded string: ' + Style.RESET_ALL + f'{decoded_string}') # show decode string
             print()
-            bit_of_ASCII = 4 * len(selected_string)
-            print(Fore.YELLOW + 'len of string: ' + Style.RESET_ALL + f'{len(selected_string)}')
+            bit_of_ASCII = 8 * len(selected_string) # calculate space of ASCII code
+            print(Fore.YELLOW + 'len of string: ' + Style.RESET_ALL + f'{len(selected_string)}') # show len of string
             print()
             print(Fore.CYAN + 'number of string bit by ASCII: ' + Style.RESET_ALL + f'{bit_of_ASCII}')
             print(Fore.CYAN + 'number of string bit by huffman: ' + Style.RESET_ALL + f'{len(encoded_string)}')
             print()
             precent =  100 - (len(encoded_string) / bit_of_ASCII) * 100
-            print(Fore.RED + 'Ratio of Ski code to Huffman coding : ' + Style.RESET_ALL + '%2f%%' %precent)
+            print(Fore.RED + 'Ratio of Ski code to Huffman coding : ' + Style.RESET_ALL + '%2f%%' %precent) # show compression of ratio
 
     
+    
+    # draw tree
     elif case == 4:
         if not strings:
             print(Fore.RED + '\nNo strings entered yet' + Style.RESET_ALL)
@@ -102,14 +109,16 @@ while True:
                 except ValueError:
                     print(Fore.RED + "Invalid input. Please enter a valid integer." + Style.RESET_ALL)
             selected_string = strings[selected_string_index - 1]
-            _, _, dictionary, root = huffman(selected_string)  
-            draw_huffman_tree(root, dictionary)          
+            _, _, dictionary, root = huffman(selected_string) 
+            draw_huffman_tree(root, dictionary)  # show graphical tree
 
+
+    # exit from program
     elif case == 5:
         break
     
     else:
-        print(Fore.RED + '\ninput is not accrpted\n' + Style.RESET_ALL)
+        print(Fore.RED + '\ninput is not accepted\n' + Style.RESET_ALL)
         time.sleep(2)
         clear_screen()
         continue

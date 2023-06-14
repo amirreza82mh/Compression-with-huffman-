@@ -15,7 +15,7 @@ def draw_huffman_tree(root,dictioanry):
             dot.edge(str(id(node)), str(id(node.left)), label='0')
             add_node(node.left)
         if node.right is not None:
-            dot.edge(str(id(node)), str(id(node.right)), label='0')
+            dot.edge(str(id(node)), str(id(node.right)), label='1')
             add_node(node.right)
 
     add_node(root)

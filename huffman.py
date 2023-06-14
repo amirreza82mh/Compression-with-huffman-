@@ -13,22 +13,22 @@ def huffman(string):
     while(len(alphabets)-1 > 0):
         left = pop_element(alphabets, alphabet_frequancy)
         right = pop_element(alphabets, alphabet_frequancy)
-        result = alphabet_frequancy[left] + alphabet_frequancy[right]
+        result = alphabet_frequancy[left] + alphabet_frequancy[right]  # find frequancy of root 
         if type(left) is str:
-            left = Node(left, None, None)
+            left = Node(left, None, None)    # make a node for char
         if type(right) is str:
             right = Node(right, None, None) 
-        node = Node(None, left, right)
+        node = Node(None, left, right)   # make a node for char
         alphabet_frequancy[node] = result
-        alphabets.append(node)
-        down_to_up_heaify(alphabets, alphabet_frequancy, len(alphabets) - 1 )
+        alphabets.append(node)   # add node to array 
+        down_to_up_heaify(alphabets, alphabet_frequancy, len(alphabets) - 1 )   # heapify array after append
 
     #assigned code 
     codes = {}
 
     def assign_code(node, code):
-        if node.char is not None:
-            codes[node.char] = code
+        if node.char is not None:  
+            codes[node.char] = code  # assigned code for each char   
         else:
             assign_code(node.left, code + '0')
             assign_code(node.right, code + '1')
@@ -90,7 +90,7 @@ def pop_element(heap, dictionary):
 
     return popped_element
 
-def up_to_down_heapify(heap, dictionary, i):
+def up_to_down_heapify(heap, dictionary, i):   # heapify array from up to down
     maxium = heap[i]
     l = 2 * i + 1
     r = 2 * i + 2
@@ -107,11 +107,11 @@ def up_to_down_heapify(heap, dictionary, i):
     
     if maxium != heap[i]:
         indexOfMax = heap.index(maxium)
-        heap[i], heap[indexOfMax] = heap[indexOfMax], heap[i]
+        heap[i], heap[indexOfMax] = heap[indexOfMax], heap[i]   # swawp 
         up_to_down_heapify(heap, dictionary, indexOfMax)
 
 
-def down_to_up_heaify(alphabet, dictionary, i):
+def down_to_up_heaify(alphabet, dictionary, i):  # heapify array from down to up
     index_parent = (i - 1) // 2
     child = alphabet[i]
     parent = alphabet[index_parent]
